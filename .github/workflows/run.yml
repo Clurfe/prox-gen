@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  # push:
+  #   branches: 
+  #       - "master"
+  schedule:
+    - cron: '15 13 * * *'
+  workflow_dispatch:
+
+env:
+  GIT_SECRET_MAIN: ${{ secrets.GIT_SECRET_MAIN }}
+  DEBIAN_FRONTEND: noninteractive
+
+jobs:
+  build:
+
+    defaults:
+      run:
+        shell: bash
+
+    timeout-minutes: 360
+    
+    strategy:
+
+      fail-fast: false
+
+    name: runner
+    
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/setup-python@v4
+        name: Setup python
+        id: python
+        with:
+          python-version: "3.8"
+
+      - uses: browser-actions/setup-chrome@v1
+        name: Setup chrome
+        # with:
+          # chrome-version: stable
+
+      - name: Checkout
+        run: |
+          git clone https://${GIT_SECRET_MAIN}@github.com/Clurfe/prox-gen.git
+
+      - name: prep
+        run: |
+          cd prox-gen
+          chmod +x prep.sh
+          ./prep.sh
+
+      - name: get-proxy
+        run: |
+          cd prox-gen
+          chmod +x get-proxy.sh
+          ./get-proxy.sh
+
+      - name: push changes
+        run: |
+          cd prox-gen
+          echo "$(date +"%Y%m%d")" >> last-changes.txt
+          git config user.name "Clurfe"
+          git config user.email "zycromerz@gmail.com"
+          git add last-changes.txt result.txt
+          git commit -sm "update $(date +"%Y%m%d")"
+          git show
+          git push --all origin -f
