@@ -145,7 +145,7 @@ def main_checker(proxy_type, proxy, position):
         print(bcolors.OKBLUE + f"Worker {position+1} | " + bcolors.OKGREEN +
               f'{proxy} | GOOD | Type : {proxy_type} | Response : {status}' + bcolors.ENDC)
 
-        print(f'{proxy}|{proxy_type}', file=open('result-checked.txt', 'a'))
+        print(f'{proxy}|{proxy_type}', file=open('result-checked-2.txt', 'a'))
 
     except Exception as e:
         try:
