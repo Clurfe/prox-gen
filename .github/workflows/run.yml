@@ -59,9 +59,13 @@ jobs:
           python3 proxy_check-1.py
           python3 proxy_check-2.py
           python3 proxy_check-3.py
+          python3 proxy_check-4.py
+          python3 proxy_check-5.py
           cat "result-checked-1.txt" > result-checked.txt
           cat "result-checked-2.txt" >> result-checked.txt
           cat "result-checked-3.txt" >> result-checked.txt
+          cat "result-checked-4.txt" > result-checked_v2.txt
+          cat "result-checked-5.txt" >> result-checked_v2.txt
 
       - name: push changes
         run: |
@@ -69,7 +73,7 @@ jobs:
           echo "$(date +"%Y%m%d")" >> last-changes.txt
           git config user.name "Clurfe"
           git config user.email "zycromerz@gmail.com"
-          git add last-changes.txt result.txt result-checked.txt
+          git add last-changes.txt result.txt result_v2.txt result-checked.txt result-checked_v2.txt
           git commit -sm "update $(date +"%Y%m%d")"
           git show
           git push --all origin -f
