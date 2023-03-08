@@ -52,6 +52,12 @@ jobs:
           chmod +x get-proxy.sh
           ./get-proxy.sh
 
+      - name: clean proxy
+        run: |
+          cd prox-gen
+          pip install requests fake_headers
+          python3 proxy_check.py
+
       - name: push changes
         run: |
           cd prox-gen
