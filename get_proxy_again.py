@@ -8,7 +8,7 @@ import os
 # requests==2.21.0
 
 
-url = ['https://www.socks-proxy.net', 'https://www.sslproxies.org', 'https://free-proxy-list.net']
+url = ['https://www.socks-proxy.net', 'https://www.sslproxies.org', 'https://free-proxy-list.net', 'https://hidemy.name/en/proxy-list/' ]
 fp_unchecked = '{0}/{1}.txt'.format(os.getcwd(), 'result_v2')
 
 
